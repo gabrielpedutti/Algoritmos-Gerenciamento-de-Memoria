@@ -1,81 +1,54 @@
 let idGlobal = 0;
 
 class Pagina{
-  constructor() {
+  constructor(referencia) {
     idGlobal++;
     this.id = idGlobal;
-    this.referencia = 1;
+    this.referencia = referencia;
   }
 }
 
 class Memoria{
   constructor() {
     this.paginasEmMemoria = [];
-    let p1 = new Pagina();
-    let p2 = new Pagina();
-    let p3 = new Pagina();
+    let p1 = new Pagina(1);
+    let p2 = new Pagina(0);
+    let p3 = new Pagina(1);
     this.paginasEmMemoria.push(p1);
     this.paginasEmMemoria.push(p2);
     this.paginasEmMemoria.push(p3);
   }
 
-  // adicionarPagina() {
-  //   let novaPagina = new Pagina();
-  //   if(this.paginasEmMemoria.length < 5) {
-  //     this.paginasEmMemoria.push(novaPagina);
-  //     console.log("\n====== Página Adicionada! ======\n\n")
-  //   } else {
-  //     let referenciaReduzida = [];
-  //     let primeirosElementos = [];
-
-  //     for (let i = 0; i < this.paginasEmMemoria.length; i++) {
-  //         if (this.paginasEmMemoria[i].referencia === 1) {
-  //             this.paginasEmMemoria[i].referencia = 0;
-  //             referenciaReduzida.push(this.paginasEmMemoria[i]);
-  //         } else {
-  //             primeirosElementos.push(this.paginasEmMemoria[i]);
-  //         }
-  //     }
-  //     if(primeirosElementos > 0) {
-  //       memoriaVirtual.hardDisk.push(primeirosElementos.shift())
-  //     } else {
-  //       memoriaVirtual.hardDisk.push(referenciaReduzida.shift())
-  //     }
-  //     primeirosElementos.unshift(novaPagina)
-  //     this.paginasEmMemoria = primeirosElementos.concat(referenciaReduzida);
-  //     // this.paginasEmMemoria.push(novaPagina);
-  //     console.log("\n====== Página Movida para Memória Virtual! ======")
-  //     console.log("====== Página Adicionada! ======\n\n")
-  //   }
-  // }
-
   adicionarPagina() {
-    let novaPagina = new Pagina();
-    if(this.paginasEmMemoria.length < 5) {
+    let novaPagina = new Pagina(1);
+    if (this.paginasEmMemoria.length < 5) {
       this.paginasEmMemoria.push(novaPagina);
-      console.log("\n====== Página Adicionada! ======\n\n")
+      console.log("\n====== Página Adicionada! ======\n\n");
     } else {
       let referenciaReduzida = [];
       let primeirosElementos = [];
 
       for (let i = 0; i < this.paginasEmMemoria.length; i++) {
-          if (this.paginasEmMemoria[i].referencia === 1) {
-              this.paginasEmMemoria[i].referencia = 0;
-              referenciaReduzida.push(this.paginasEmMemoria[i]);
-          } else {
-              primeirosElementos.push(this.paginasEmMemoria[i]);
-          }
+        if (this.paginasEmMemoria[i].referencia === 1) {
+          this.paginasEmMemoria[i].referencia = 0;
+          referenciaReduzida.push(this.paginasEmMemoria[i]);
+        } else {
+          primeirosElementos.push(this.paginasEmMemoria[i]);
+        }
       }
-      if(primeirosElementos > 0) {
-        memoriaVirtual.hardDisk.push(primeirosElementos.shift())
+
+      if (referenciaReduzida.length > 0) {
+        let paginaRemovida = primeirosElementos.shift();
+        this.paginasEmMemoria = primeirosElementos.concat([novaPagina], referenciaReduzida);
+        memoriaVirtual.hardDisk.push(paginaRemovida);
       } else {
-        memoriaVirtual.hardDisk.push(referenciaReduzida.shift())
+        let paginaRemovida = referenciaReduzida.shift();
+        this.paginasEmMemoria = primeirosElementos.concat([novaPagina], referenciaReduzida);
+        memoriaVirtual.hardDisk.push(paginaRemovida);
       }
-      primeirosElementos.unshift(novaPagina)
-      this.paginasEmMemoria = primeirosElementos.concat(referenciaReduzida);
-      // this.paginasEmMemoria.push(novaPagina);
-      console.log("\n====== Página Movida para Memória Virtual! ======")
-      console.log("====== Página Adicionada! ======\n\n")
+
+      console.log("\n====== Página Movida para Memória Virtual! ======");
+      console.log("====== Página Adicionada! ======\n\n");
     }
   }
 
@@ -117,8 +90,6 @@ class MemoriaVirtual {
     console.log();
   }
 }
-
-
 
 function exibirMenu() {
   console.log("Digite a opção desejada:")
