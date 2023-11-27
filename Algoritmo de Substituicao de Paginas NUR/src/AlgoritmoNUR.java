@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class AlgoritmoNUR {
     ArrayList<Pagina> paginas;
+    Scanner scanner = new Scanner(System.in);
 
     public AlgoritmoNUR() {
         this.paginas = new ArrayList<>();
@@ -20,21 +21,23 @@ public class AlgoritmoNUR {
 
     public void adicionarPagina(String nome) {
         if (paginas.size() > 4) {
-            substituirPagina();
+            substituirPagina(nome);
+        } else {
+            // Adicionar uma nova página
+            Pagina novaPagina = new Pagina(nome);
+            paginas.add(novaPagina);
+            System.out.println("Página inserida com sucesso!");
         }
 
         // Atualizar o status das páginas existentes para false
         for (Pagina pagina : paginas) {
-            if (pagina.referenciada || pagina.modificada) {
-                pagina.atualizarStatusModificada(false);
-                pagina.atualizarStatusReferenciada(false);
+            if (pagina.nome != nome){
+                if (pagina.referenciada || pagina.modificada) {
+                    pagina.atualizarStatusModificada(false);
+                    pagina.atualizarStatusReferenciada(false);
+                }
             }
         }
-
-        // Adicionar uma nova página
-        Pagina novaPagina = new Pagina(nome);
-        paginas.add(novaPagina);
-        System.out.println("Página inserida com sucesso!");
     }
 
     public void modificarPagina() {
@@ -44,14 +47,10 @@ public class AlgoritmoNUR {
 
         for (Pagina pagina : paginas) {
             if (pagina.nome.equals(nomePagina)) {
-                if (!pagina.substituida) {
-                    pagina.atualizarStatusModificada(true);
-                    System.out.println("A página " + pagina.nome + " foi modificada.");
-                    return;
-                } else {
-                    System.out.println("A página " + pagina.nome + " foi substituída e não pode ser modificada.");
-                    return;
-                }
+                pagina.atualizarStatusModificada(true);
+                System.out.println("A página " + pagina.nome + " foi modificada.");
+                return;
+
             }
         }
         System.out.println("Página não encontrada.");
@@ -64,39 +63,27 @@ public class AlgoritmoNUR {
 
         for (Pagina pagina : paginas) {
             if (pagina.nome.equals(nomePagina)) {
-                if (!pagina.substituida) {
-                    pagina.atualizarStatusReferenciada(true);
-                    System.out.println("A página " + pagina.nome + " foi referenciada.");
-                    return;
-                } else {
-                    System.out.println("A página " + pagina.nome + " foi substituída e não pode ser referenciada.");
-                    return;
-                }
+                pagina.atualizarStatusReferenciada(true);
+                System.out.println("A página " + pagina.nome + " foi referenciada.");
+                return;
             }
         }
         System.out.println("Página não encontrada.");
     }
 
-    public void substituirPagina() {
+    public void substituirPagina(String nome) {
+        String nomeAntigo;
         for (Pagina pagina : paginas) {
-            if (!pagina.referenciada && !pagina.modificada && !pagina.substituida) {
-                pagina.atualizarStatusModificada(false);
-                pagina.atualizarStatusReferenciada(false);
-                pagina.atualizarStatusSubstituida(true);
-                System.out.println("A página " + pagina.nome + " foi substituída.");
-                return;
-            } else if (!pagina.referenciada && !pagina.substituida) {
-                pagina.atualizarStatusModificada(false);
-                pagina.atualizarStatusReferenciada(false);
-                pagina.atualizarStatusSubstituida(true);
-                System.out.println("A página " + pagina.nome + " foi substituída.");
-                return;
-            } else if (!pagina.modificada && !pagina.substituida) {
-                pagina.atualizarStatusModificada(false);
-                pagina.atualizarStatusReferenciada(false);
-                pagina.atualizarStatusSubstituida(true);
-                System.out.println("A página " + pagina.nome + " foi substituída.");
-                return;
+            if (!pagina.referenciada) {
+                if (!pagina.modificada){
+                    nomeAntigo = pagina.nome;
+                    pagina.atualizarStatusModificada(true);
+                    pagina.atualizarStatusReferenciada(true);
+                    pagina.nome = nome;
+                    System.out.println("Página " + nome + " inserida com sucesso!");
+                    System.out.println("A página " + nomeAntigo + " foi substituída.");
+                    return;
+                }
             }
         }
     }
@@ -105,7 +92,7 @@ public class AlgoritmoNUR {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Menu:");
+            System.out.println("\nMenu:");
             System.out.println("1- Visualizar páginas atuais");
             System.out.println("2- Adicionar nova página");
             System.out.println("3- Modificar uma página");
