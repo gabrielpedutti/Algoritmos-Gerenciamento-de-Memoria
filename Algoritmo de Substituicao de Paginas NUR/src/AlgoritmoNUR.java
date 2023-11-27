@@ -31,8 +31,8 @@ public class AlgoritmoNUR {
 
         // Atualizar o status das páginas existentes para false
         for (Pagina pagina : paginas) {
-            if (pagina.nome != nome){
-                if (pagina.referenciada || pagina.modificada) {
+            if (pagina.getNome() != nome){
+                if (pagina.isReferenciada() || pagina.isModificada()) {
                     pagina.atualizarStatusModificada(false);
                     pagina.atualizarStatusReferenciada(false);
                 }
@@ -47,9 +47,9 @@ public class AlgoritmoNUR {
         String nomePagina = scanner.nextLine();
 
         for (Pagina pagina : paginas) {
-            if (pagina.nome.equals(nomePagina)) {
+            if (pagina.getNome().equals(nomePagina)) {
                 pagina.atualizarStatusModificada(true);
-                System.out.println("A página " + pagina.nome + " foi modificada.");
+                System.out.println("A página " + pagina.getNome() + " foi modificada.");
                 return;
 
             }
@@ -64,9 +64,9 @@ public class AlgoritmoNUR {
         String nomePagina = scanner.nextLine();
 
         for (Pagina pagina : paginas) {
-            if (pagina.nome.equals(nomePagina)) {
+            if (pagina.getNome().equals(nomePagina)) {
                 pagina.atualizarStatusReferenciada(true);
-                System.out.println("A página " + pagina.nome + " foi referenciada.");
+                System.out.println("A página " + pagina.getNome() + " foi referenciada.");
                 return;
             }
         }
@@ -77,12 +77,12 @@ public class AlgoritmoNUR {
     public void substituirPagina(String nome) {
         String nomeAntigo;
         for (Pagina pagina : paginas) {
-            if (!pagina.referenciada) {
-                if (!pagina.modificada){
-                    nomeAntigo = pagina.nome;
+            if (!pagina.isReferenciada()) {
+                if (!pagina.isModificada()){
+                    nomeAntigo = pagina.getNome();
                     pagina.atualizarStatusModificada(true);
                     pagina.atualizarStatusReferenciada(true);
-                    pagina.nome = nome;
+                    pagina.setNome(nome);
                     System.out.println("Página " + nome + " inserida com sucesso!");
                     System.out.println("A página " + nomeAntigo + " foi substituída.");
                     return;
@@ -95,7 +95,7 @@ public class AlgoritmoNUR {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Menu:");
+            System.out.println("\nMenu:");
             System.out.println("1- Visualizar páginas atuais");
             System.out.println("2- Adicionar nova página");
             System.out.println("3- Modificar uma página");
