@@ -2,16 +2,48 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Pagina {
-    String nome;
-    String ultimaExecucao;
-    boolean referenciada;
-    boolean modificada;
+    private String nome;
+    private String ultimaExecucao;
+    private boolean referenciada;
+    private boolean modificada;
 
     public Pagina(String nome) {
         this.nome = nome;
         this.ultimaExecucao = obterHoraAtual();
         this.referenciada = true;
         this.modificada = true;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getUltimaExecucao() {
+        return ultimaExecucao;
+    }
+
+    public void setUltimaExecucao(String ultimaExecucao) {
+        this.ultimaExecucao = ultimaExecucao;
+    }
+
+    public boolean isReferenciada() {
+        return referenciada;
+    }
+
+    public void setReferenciada(boolean referenciada) {
+        this.referenciada = referenciada;
+    }
+
+    public boolean isModificada() {
+        return modificada;
+    }
+
+    public void setModificada(boolean modificada) {
+        this.modificada = modificada;
     }
 
     public static String obterHoraAtual() {
