@@ -26,7 +26,6 @@ public class AlgoritmoNUR {
             // Adicionar uma nova página
             Pagina novaPagina = new Pagina(nome);
             paginas.add(novaPagina);
-            System.out.println("Página inserida com sucesso!");
         }
 
         // Atualizar o status das páginas existentes para false
@@ -92,7 +91,7 @@ public class AlgoritmoNUR {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("\nMenu:");
+            System.out.println("Menu:");
             System.out.println("1- Visualizar páginas atuais");
             System.out.println("2- Adicionar nova página");
             System.out.println("3- Modificar uma página");
@@ -111,6 +110,7 @@ public class AlgoritmoNUR {
                     System.out.print("\nNome da nova página: ");
                     String nome = scanner.nextLine();
                     adicionarPagina(nome);
+                    System.out.println("Página inserida com sucesso!\n");
                     break;
                 case 3:
                     modificarPagina();
