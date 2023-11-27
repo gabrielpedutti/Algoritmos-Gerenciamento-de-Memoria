@@ -13,17 +13,18 @@ public class AlgoritmoNUR {
         }
     }
 
+    // Visualizar as páginas criadas
     public void visualizarPaginas() {
         for (Pagina pagina : paginas) {
             System.out.println(pagina);
         }
     }
 
+    // Adicionar uma nova página
     public void adicionarPagina(String nome) {
         if (paginas.size() > 4) {
             substituirPagina(nome);
         } else {
-            // Adicionar uma nova página
             Pagina novaPagina = new Pagina(nome);
             paginas.add(novaPagina);
         }
@@ -39,6 +40,7 @@ public class AlgoritmoNUR {
         }
     }
 
+    //Modificar uma página
     public void modificarPagina() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Digite o nome da página que deseja modificar: ");
@@ -55,6 +57,7 @@ public class AlgoritmoNUR {
         System.out.println("Página não encontrada.");
     }
 
+    //Referenciar uma página
     public void referenciarPagina() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Digite o nome da página que deseja referenciar: ");
@@ -70,6 +73,7 @@ public class AlgoritmoNUR {
         System.out.println("Página não encontrada.");
     }
 
+    //Substituir uma página
     public void substituirPagina(String nome) {
         String nomeAntigo;
         for (Pagina pagina : paginas) {
@@ -100,17 +104,17 @@ public class AlgoritmoNUR {
 
             System.out.print("Escolha a opção: ");
             int escolha = scanner.nextInt();
-            scanner.nextLine(); // Consumir a quebra de linha
+            scanner.nextLine();
 
             switch (escolha) {
                 case 1:
                     visualizarPaginas();
                     break;
                 case 2:
-                    System.out.print("\nNome da nova página: ");
+                    System.out.print("\nInforme o nome da nova página: ");
                     String nome = scanner.nextLine();
                     adicionarPagina(nome);
-                    System.out.println("Página inserida com sucesso!\n");
+                    System.out.println( nome + " inserida com sucesso!\n");
                     break;
                 case 3:
                     modificarPagina();
